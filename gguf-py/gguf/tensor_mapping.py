@@ -32,6 +32,7 @@ class TensorNameMap:
             "rwkv.embeddings",                           # rwkv6
             "model.embeddings",                          # rwkv7
             "model.word_embeddings",                     # bailingmoe
+            "model.embed",                               # talkie
             "language_model.model.embed_tokens",         # llama4
             "encoder",                                   # neobert
             "model.transformer.wte",                     # llada
@@ -249,6 +250,7 @@ class TensorNameMap:
             "model.transformer.blocks.{bid}.q_proj",                     # llada
             "layers.{bid}.self_attn.q_proj",                             # qwen3-embedding
             "backbone.layers.{bid}.mixer.q_proj",                        # nemotron-h
+            "model.blocks.{bid}.attn.attn_query",                        # talkie
         ),
 
         # Attention key
@@ -269,6 +271,7 @@ class TensorNameMap:
             "model.transformer.blocks.{bid}.k_proj",                   # llada
             "layers.{bid}.self_attn.k_proj",                           # qwen3-embedding
             "backbone.layers.{bid}.mixer.k_proj",                      # nemotron-h
+            "model.blocks.{bid}.attn.attn_key",                        # talkie
         ),
 
         # Attention value
@@ -288,6 +291,7 @@ class TensorNameMap:
             "model.transformer.blocks.{bid}.v_proj",                     # llada
             "layers.{bid}.self_attn.v_proj",                             # qwen3-embedding
             "backbone.layers.{bid}.mixer.v_proj",                        # nemotron-h
+            "model.blocks.{bid}.attn.attn_value",                        # talkie
         ),
 
         # Attention output
@@ -327,6 +331,7 @@ class TensorNameMap:
             "layers.{bid}.self_attn.o_proj",                                # qwen3-embedding
             "backbone.layers.{bid}.mixer.o_proj",                           # nemotron-h
             "model.layers.{bid}.self_attn.language_expert_dense",           # cogvlm
+            "model.blocks.{bid}.attn.attn_resid",                           # talkie
         ),
 
         # Attention output norm
@@ -501,6 +506,7 @@ class TensorNameMap:
             "layers.{bid}.mlp.up_proj",                               # qwen3-embedding
             "backbone.layers.{bid}.mixer.up_proj",                    # nemotron-h
             "model.layers.{bid}.mlp.language_mlp.up_proj",            # cogvlm
+            "model.blocks.{bid}.mlp.mlp_linear",                      # talkie
         ),
 
         MODEL_TENSOR.FFN_UP_EXP: (
@@ -554,6 +560,7 @@ class TensorNameMap:
             "model.transformer.blocks.{bid}.ff_proj",         # llada
             "layers.{bid}.mlp.gate_proj",                     # qwen3-embedding
             "model.layers.{bid}.mlp.language_mlp.gate_proj",  # cogvlm
+            "model.blocks.{bid}.mlp.mlp_gate",                 # talkie
         ),
 
         MODEL_TENSOR.FFN_GATE_EXP: (
@@ -630,6 +637,7 @@ class TensorNameMap:
             "layers.{bid}.mlp.down_proj",                             # qwen3-embedding
             "backbone.layers.{bid}.mixer.down_proj",                  # nemotron-h
             "model.layers.{bid}.mlp.language_mlp.down_proj",          # cogvlm
+            "model.blocks.{bid}.mlp.mlp_resid",                       # talkie
         ),
 
         MODEL_TENSOR.FFN_DOWN_EXP: (
@@ -676,6 +684,7 @@ class TensorNameMap:
             "model.layers.layers.{bid}.mixer.q_norm",                         # plamo3
             "layers.{bid}.self_attn.q_norm",                                  # qwen3-embedding
             "model.layers.{bid}.attention.query_layernorm",                   # apertus
+            "model.blocks.{bid}.attn.head_gain.head_g",                       # talkie
         ),
 
         MODEL_TENSOR.ATTN_K_NORM: (
@@ -692,6 +701,10 @@ class TensorNameMap:
             "model.layers.layers.{bid}.mixer.k_norm",                         # plamo3
             "layers.{bid}.self_attn.k_norm",                                  # qwen3-embedding
             "model.layers.{bid}.attention.key_layernorm",                     # apertus
+        ),
+
+        MODEL_TENSOR.EMBD_SKIP_SCALE: (
+            "model.blocks.{bid}.embed_skip.a_g", # talkie
         ),
 
         MODEL_TENSOR.ROPE_FREQS: (
